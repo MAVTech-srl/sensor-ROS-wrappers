@@ -1,8 +1,7 @@
-# FROM dustynv/realsense:r36.2.0
-
-# ---------- From here....
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
 FROM ${BASE_IMAGE}
+
+LABEL org.opencontainers.image.source="https://github.com/mavtech-srl/sensor-ROS-wrappers.git"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -31,7 +30,7 @@ RUN apt-get update \
     software-properties-common
 
 # BE CAREFUL WITH THE SOFTWARE VERSIONS!!
-#       Camera FW is v5.15.0.2 -> librealsense needs to be v2.54.1 and ROS2 Wrapper needs to be 4.54.1!!!
+#       Camera FW is v5.15.0.2 -> librealsense needs to be v2.54.1 and ROS2 Wrapper needs to be 4.54.1!!! Check in Github releases!
 
 RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.54.1.tar.gz -O librealsense.tar.gz \
     && mkdir librealsense \
@@ -55,11 +54,7 @@ RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.54.
     cp ./config/99-realsense-libusb.rules /etc/udev/rules.d/ && \
     rm -rf librealsense
     
-RUN python3 -c 'import pyrealsense2'
-
-#RUN udevadm control --reload-rules && udevadm trigger
-
-# ------------------ .....to here new!
+# RUN python3 -c 'import pyrealsense2'
 
 # Install ROS2
 

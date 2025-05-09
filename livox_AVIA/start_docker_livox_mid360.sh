@@ -1,10 +1,4 @@
-#sudo docker run --runtime nvidia -it --rm --network host -e DISPLAY=$DISPLAY \
-#     --device /dev/video0 --device /dev/video1 --device /dev/video2 --device /dev/video4 \
-#     --device /dev/video5 \
-#     -v /tmp/.X11-unix/:/tmp/.X11-unix \
-#     -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH \
-#     dustynv/realsense:r36.2.0
-     
+docker build -t ghcr.io/mavtech-srl/livox_mid360:0.1 -f Dockerfile .
 
 DOCKER_ARGS+=("-v /tmp/.X11-unix:/tmp/.X11-unix")
 DOCKER_ARGS+=("-v $HOME/.Xauthority:/home/rs/.Xauthority:rw")
@@ -31,5 +25,5 @@ docker run -it --rm \
     --ipc=host \
     ${DOCKER_ARGS[@]} \
     --runtime nvidia \
-    prova/livox_avia
+    ghcr.io/mavtech-srl/livox_mid360:0.1
 

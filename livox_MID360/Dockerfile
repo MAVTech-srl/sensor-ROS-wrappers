@@ -1,10 +1,8 @@
-#################################
-#   Librealsense Builder Stage  #
-#################################
-
-
-ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
+# ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
+ARG BASE_IMAGE=ubuntu:22.04
 FROM ${BASE_IMAGE} AS livox-ros-wrapper
+
+LABEL org.opencontainers.image.source="https://github.com/mavtech-srl/sensor-ROS-wrappers.git"
 
 # To avoid waiting for input during package installation
 ENV DEBIAN_FRONTEND=noninteractive

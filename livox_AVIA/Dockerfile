@@ -1,10 +1,8 @@
-#################################
-#   Librealsense Builder Stage  #
-#################################
-
-
-ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
+# ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
+ARG BASE_IMAGE=ubuntu:22.04
 FROM ${BASE_IMAGE} AS livox-ros-wrapper
+
+LABEL org.opencontainers.image.source="https://github.com/mavtech-srl/sensor-ROS-wrappers.git"
 
 # To avoid waiting for input during package installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -20,7 +18,6 @@ ca-certificates \
 wget \
 software-properties-common \
 curl
-# && rm -rf /var/lib/apt/lists/*
 
 
 # Download sources
@@ -31,6 +28,7 @@ WORKDIR /usr/src
 # RUN git clone https://github.com/Livox-SDK/Livox-SDK.git \ 
 RUN git clone https://github.com/shenxw0127/Livox-SDK-24.04.git ./Livox-SDK \
     && cd Livox-SDK \
+    && git checkout 36207aaa9f1faa6eb9113138732490587fce6367 \
     && cd build && cmake .. \
     && make -j4 \
     && make install
@@ -88,6 +86,5 @@ ENV SHELL="/bin/bash"
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME
 COPY ./ros_entrypoint.sh /
-# RUN chmod +x /ros_entrypoint.sh && /ros_entrypoint.sh
 ENTRYPOINT [ "/bin/bash", "/ros_entrypoint.sh" ]
 CMD ["bash"]
