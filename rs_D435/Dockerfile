@@ -1,4 +1,5 @@
-ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
+# ARG BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r36.4.0
+ARG BASE_IMAGE=ubuntu:22.04
 FROM ${BASE_IMAGE}
 
 LABEL org.opencontainers.image.source="https://github.com/mavtech-srl/sensor-ROS-wrappers.git"
@@ -42,7 +43,7 @@ RUN wget https://github.com/IntelRealSense/librealsense/archive/refs/tags/v2.54.
     cmake \
         -DBUILD_EXAMPLES=true \
         -DFORCE_RSUSB_BACKEND=true \
-        -DBUILD_WITH_CUDA=true \
+        -DBUILD_WITH_CUDA=false \
         -DCMAKE_BUILD_TYPE=release \
         -DBUILD_PYTHON_BINDINGS=bool:true \
         -DPYTHON_EXECUTABLE=/usr/bin/python3 \
