@@ -1,5 +1,3 @@
-docker build -t ghcr.io/mavtech-srl/livox_avia:0.1 -f Dockerfile .
-
 DOCKER_ARGS+=("-v /tmp/.X11-unix:/tmp/.X11-unix")
 DOCKER_ARGS+=("-v $HOME/.Xauthority:/home/rs/.Xauthority:rw")
 DOCKER_ARGS+=("-e DISPLAY")
